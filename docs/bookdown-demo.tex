@@ -1,0 +1,438 @@
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Syllabus for the Datamining Class},
+            pdfauthor={Gener Avilés R},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Syllabus for the Datamining Class}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Gener Avilés R}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{2017-02-19}
+
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\chapter{Introduction}\label{introduction}
+
+This course is taught in the \textbf{\emph{Maestría y Doctorado en
+Ciencias e Ingeniería}} (MyDCI) programm of \emph{Facultad de
+Ingeniería, Arquitectura y Diseño} of \emph{Universidad Autónoma de Baja
+California} in the Ensenada Campus.
+
+The course is taught by
+\href{https://www.researchgate.net/profile/Maria_Cosio_Leon}{Dr.~María
+de los Ángeles Cosío León}.
+
+\chapter{Principal Components Analysis}\label{intro}
+
+\section{What does PCA do?}\label{what-does-pca-do}
+
+This methods tries to explain the correlation structure of a set of
+predictor variables using a smaller set o linear combinations of these
+variables called \textbf{\emph{components}}, note that \emph{components}
+are not variables, rather indicators of linear combinations between
+variables. Given a dataset with \(m\) variables a set of \(k\) linear
+combinations can be used to represent it (meaning that \(k\) contains
+almost as much information as the \(m\) variables), also \(k<<m\).
+
+\section{PCA Step by Step}\label{pca-step-by-step}
+
+\subsection{1. Getting the dataset and things
+ready.}\label{getting-the-dataset-and-things-ready.}
+
+Before starting the process of dimensionality reduction one should make
+sure the data is standardized, this is done to avoid bised in the
+results by values to large or to small when compared to each other.
+
+\subsection{2. Centering the points}\label{centering-the-points}
+
+\begin{itemize}
+\tightlist
+\item
+  The \textbf{standardization process} is acomplished when the mean for
+  each variable \(=0\) and the standard deviation \(=1\). The following
+  formula can be followed to acomplish this process:
+  \[Z_i = \frac {(X_i-\mu_i)}{\sigma_{ii}}\]
+\end{itemize}
+
+Where: \(\mu_i\) equals the mean of \(X_i\) and \(\sigma_{ii}\) equals
+the standard deviation of \(X_i\).
+
+\begin{itemize}
+\tightlist
+\item
+  If the values are given as a set of points the process can be
+  acomplished with the following formula:
+\end{itemize}
+
+\[x_{i,a} = x_{i,a} - \mu_a\]
+
+This move will facilitate the calculations down the road.
+
+\subsection{\texorpdfstring{3. Compute covariance (\(\sigma_{X,Y}\))
+matrix}{3. Compute covariance (\textbackslash{}sigma\_\{X,Y\}) matrix}}\label{compute-covariance-sigma_xy-matrix}
+
+The \textbf{covariance} is a measure of the degree to which two
+variables vary together. Positive covariance indicates that when one
+variable increases, the other tends to increase. Negative covariance
+indicates that when one variable increases, the other tends to decrease.
+The covariance measure \textbf{is not scaled}.
+
+In a \(2x2\) matrix: \[\begin{vmatrix}
+2.0 & 0.8 \\
+0.8 & 0.6
+\end{vmatrix}\]
+
+Since the mean (\(\mu\)) is equal to \(\emptyset\) thanks to
+\emph{centering} the values in the previous step, the formula to
+calculate the covariance of the values in the matrix is:
+\[cov(x_1,x_2) = \frac{1}{n}\sum_{i=1}^{n}x_{i,j}x_{i,2}\] \textbf{The
+way to interpret \emph{covariance} is to understand it's results as
+information about how one attribute changes as the other one changes.}
+
+It is important to remember that, if we multiply a vector by the
+covariance matrix or \(\sum\) the resulting vector will turn towards the
+direction of the variance.
+
+Changing the units of measure would change the results, this is an
+inconvenience and is addressed by calculating the
+\textbf{\emph{correlation coefficient \(r_{ij}\)}}:
+
+\(r_{ij}\) scales the covariance by each of the standard deviations:
+\[r_{ij} = \frac{\sigma_{ij}^2}{\sigma_{ii} \sigma_{jj}}\] \textbf{The
+\(r_{ij}\) gives us a value with reference to know how much of a
+correlation exists between two variables.}
+
+\subsection{4. Eigenvectors +
+Eigenvalues}\label{eigenvectors-eigenvalues}
+
+Define a \textbf{new set of dimentions} by:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Taking the dataset and looking for the direction of the data, looking
+  to draw a line in which, along it, there is the \textbf{greatest
+  amount of variance \(\sigma^2\)} in the data, this line will be called
+  the \textbf{principal component 1 (PC1)}.
+\end{enumerate}
+
+\[\sigma^2 = \frac{\sum(X-\mu)^2}{N}\space \space  \text{or}\space \space \sigma^2 = \frac{\sum X^2}{N} - \mu^2\]
+\emph{In the previous formula \(\sigma^2\) is defined as the sum of the
+squared distances of each term in the distribution from the mean
+(\(\mu^2\)) divided by the number of terms in the distribution (\(N\)).
+In simple words: \(\sigma^2\) measures \textbf{how far a set of random
+numbers are spread out from their mean}.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Once PC1 is determined, it will established the next dimension by
+  drawing an \textbf{\emph{orthogonal}} (perpendicular) line in relation
+  to PC1, the exact area where the line will be drawn is determined by
+  the same process of finding the gratest \(\sigma^2\) of the remaining
+  data, once this is done PC2 is ready.
+\item
+  This will be done iteratively until all the dimensions (\(d\)) of the
+  dataset are covered and components (\(m\)) are generated for every
+  single \(d\).
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  The first \(m<<d\) components become \(m\) new dimensions.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Coordinates from every datapoint will be changed to these ``new''
+    dimensions.
+  \end{itemize}
+\item
+  \textbf{Greatest variability} is pursued to maintain the
+  \href{https://rpubs.com/generaviles/248692}{\emph{smoothness}}
+  assumption of dimensions.
+\end{itemize}
+
+ Eigenvectors and eigenvalues are mathematically expressed as:
+
+\[A \overrightarrow{v} = \lambda \overrightarrow{v}\] Where \(A\)
+represents \emph{transformation}, \(\overrightarrow{v}\), a vector, also
+known as \textbf{eigenvector}, that comes out of the matrix being
+analysied and \(\lambda\), a scalar value also known as
+\textbf{eigenvalue}.
+
+\textbf{Principal components = eigenvectors with largest eigenvalues.}
+
+\subsubsection{Finding Eigenvalues and
+Eigenvectors}\label{finding-eigenvalues-and-eigenvectors}
+
+In order to exemplify the process of finding these values and vector
+steps are presented for a \(2x2\) matrix, but this can be done with any
+matrix of \(n\space x\space n\) dimensions following the rules of matrix
+algebra.
+
+To begin with the example we will declare a matrix:
+\[A =  \left[ \begin{array}{ccc}
+7 & 3 \\
+3 & -1  \end{array} \right]\]
+
+Now the steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Multiply an \(n\space x\space n\) identity matrix by the
+  scalar \(\lambda\): \(IA\lambda\)} \[\left[ \begin{array}{cc}
+  1 & 0 \\
+  0 & 1  \end{array} \right] * \lambda = \left[ \begin{array}{cc}
+  \lambda & 0 \\
+  0 & \lambda  \end{array} \right]\]
+\item
+  \textbf{Substract the identity matrix multiple from matrix A:
+  \(A-\lambda I\)} \[\left[ \begin{array}{cc}
+  7 & 3 \\
+  3 & -1  \end{array} \right] - \left[ \begin{array}{cc}
+  1 & 0 \\
+  0 & 1  \end{array} \right] = \left[ \begin{array}{cc}
+  7-\lambda & 3 \\
+  3 & -1-\lambda  \end{array} \right]\]
+\item
+  \textbf{Find the determinant of the matrix obtained in previous step:
+  \(det(A-\lambda I)\)} \[ det\left[ \begin{array}{cc}
+  7-\lambda & 3 \\
+  3 & -1-\lambda  \end{array} \right] = (7-\lambda)(-1-\lambda)-(3*3)\]
+  \[= - 7 - 7 \lambda + \lambda + \lambda^2 = -16-6\lambda + \lambda^2\]
+  \[= \lambda^2 - 6\lambda -16\]
+\item
+  \textbf{Solve for the values of \(\lambda\) that satisfy the equation
+  \(det(A-\lambda I)=0\)} Solving for \(\lambda^2 - 6\lambda -16 = 0\)
+  will result in: \[(\lambda-8)(\lambda+2)=0\] Therfore
+  \(\lambda_1 = 8\) and \(\lambda_2 = -2\) \textbf{these are the
+  eigenvalues for matrix \(A\).} 
+\item
+  \textbf{Solve for the corresponding vector to each \(\lambda\)}
+\end{enumerate}
+
+\textbf{Solving for }\(\lambda = 8\)\textbf{, in this process we will
+call the matrix with substituted values: \(B\).}
+
+\[ \left[ \begin{array}{cc}
+7-(8) & 3 \\
+3 & -1-(8)  \end{array} \right] =  \left[ \begin{array}{cc}
+-1 & 3 \\
+3 & -9  \end{array} \right]\]
+
+We will assume the following \(B \overline X = 0 \space \therefore\)
+
+\[\left[ \begin{array}{cc}
+-1 & 3 \\
+3 & -9  \end{array} \right] \left[ \begin{array}{cc}
+x_1 \\
+x_2 \end{array} \right] = \left[ \begin{array}{cc}
+0 \\
+0 \end{array} \right]\]
+
+Applying row reduction \(3R_1 + R_2 = R_2\) to:
+\[\left[ \begin{array}{cc|r}
+-1 & 3 & 0\\
+3 & -9 & 0  \end{array} \right] = \left[ \begin{array}{cc|r}
+-1 & 3 & 0\\
+0 & 0 & 0  \end{array} \right] \space \therefore -x_1+3x_2 = 0\]
+
+From the previous operation we obtain \(3x_2 = x_1\), at this point we
+can choose a value for any \(x\), we will go for \(x_2 = 1\) to keep it
+simple.
+
+\[3x_2 = x_1 \space \therefore 3(1) = x_1 \space \therefore \space x_1 = 3\]
+
+\textbf{Now we know that the eigenvalue \(\lambda = 8\) \$ corresponds
+to the eigenvector \(\overline X = (3,1)\).}
+
+\textbf{Solving for \(\lambda -2\), generating matrix \(C\).}
+\[C = \left[ \begin{array}{cc}
+7-(-2) & 3 \\
+3 & -1-(-2)  \end{array} \right]\]
+\(C\overline X = 0 \space \therefore\)
+
+\[\left[ \begin{array}{cc}
+9 & 3 \\
+3 & 1  \end{array} \right] \left[ \begin{array}{c}
+x_1 \\
+x_2  \end{array} \right] = \left[ \begin{array}{c}
+0 \\
+0  \end{array} \right]\]
+
+Applying row reduction \(3R_2 - R_1 = R_1\):
+
+\[\left[ \begin{array}{cc|r}
+0 & 0 & 0\\
+3 & 1 & 0 \end{array} \right] \space \therefore 3x_1 + x_2 = 0\]
+
+Assigning \(x_1 = 1\): \[x_2 = -3x_1 \space \therefore x_2 = -3(1)\]
+
+\textbf{The eigenvalue \(\lambda = 8\) corresponds to the eigenvector
+\(\overline X = (1,-3)\)}
+
+\subsection{\texorpdfstring{5. Pick \(m<d\) eigenvectors with highest
+eigenvalues.}{5. Pick m\textless{}d eigenvectors with highest eigenvalues.}}\label{pick-md-eigenvectors-with-highest-eigenvalues.}
+
+In other words, usually the \textbf{2} eigenvectors with the highest
+scalars, or \(\lambda\), will be selected to represent the whole dataset
+as \emph{Principal Component 1} and \emph{Principal Component 2}.
+
+\subsection{6. Project datapoints to those
+eigenvectors.}\label{project-datapoints-to-those-eigenvectors.}
+
+One or the algoritm has to project the datapoints to these new set of
+dimensions so they can be analyized.
+
+\subsection{7. Perform analysis as needed according to
+study.}\label{perform-analysis-as-needed-according-to-study.}
+
+\section{Pros and Cons of PCA}\label{pros-and-cons-of-pca}
+
+This algorithm, as all, is better suited for specific circumstances and
+performs poorly in others. The following list trys to summarize this
+idea:
+
+\subsubsection{\texorpdfstring{\textbf{Pros}}{Pros}}\label{pros}
+
+\begin{itemize}
+\tightlist
+\item
+  Reduction in size of data.
+\item
+  Allows estimation of probabilites in high-dimensional data.
+\item
+  It renders a set of components that are uncorrelated.
+\end{itemize}
+
+\subsubsection{\texorpdfstring{\textbf{Cons}}{Cons}}\label{cons}
+
+\begin{itemize}
+\tightlist
+\item
+  It has a high computational cost, therefore it cannot be applied to
+  very large datasets.
+\item
+  Not good when working with fine-grained classes.
+\end{itemize}
+
+\chapter{Literature}\label{literature}
+
+Here is a review of existing methods.
+
+\chapter{Methods}\label{methods}
+
+We describe our methods in this chapter.
+
+\chapter{Applications}\label{applications}
+
+Some \emph{significant} applications are demonstrated in this chapter.
+
+\section{Example one}\label{example-one}
+
+\section{Example two}\label{example-two}
+
+\chapter{Final Words}\label{final-words}
+
+We have finished a nice book.
+
+\bibliography{packages,book}
+
+
+\end{document}

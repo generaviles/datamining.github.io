@@ -1,0 +1,20 @@
+--- 
+title: "Syllabus for the Datamining Class"
+author: "Gener Avilés R"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+# Introduction
+
+This course is taught in the ***Maestría y Doctorado en Ciencias e Ingeniería*** (MyDCI) programm of *Facultad de Ingeniería, Arquitectura y Diseño* of *Universidad Autónoma de Baja California* in the Ensenada Campus.
+
+The course is taught by [Dr. María de los Ángeles Cosío León](https://www.researchgate.net/profile/Maria_Cosio_Leon).
+
