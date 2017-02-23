@@ -68,22 +68,15 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Principal Components Analysis</a><ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-does-pca-do"><i class="fa fa-check"></i><b>2.1</b> What does PCA do?</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#pca-step-by-step"><i class="fa fa-check"></i><b>2.2</b> PCA Step by Step</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="intro.html"><a href="intro.html#getting-the-dataset-and-things-ready."><i class="fa fa-check"></i><b>2.2.1</b> 1. Getting the dataset and things ready.</a></li>
-<li class="chapter" data-level="2.2.2" data-path="intro.html"><a href="intro.html#centering-the-points"><i class="fa fa-check"></i><b>2.2.2</b> 2. Centering the points</a></li>
-<li class="chapter" data-level="2.2.3" data-path="intro.html"><a href="intro.html#compute-covariance-sigma_xy-matrix"><i class="fa fa-check"></i><b>2.2.3</b> 3. Compute covariance (<span class="math inline">\(\sigma_{X,Y}\)</span>) matrix</a></li>
-<li class="chapter" data-level="2.2.4" data-path="intro.html"><a href="intro.html#eigenvectors-eigenvalues"><i class="fa fa-check"></i><b>2.2.4</b> 4. Eigenvectors + Eigenvalues</a></li>
-<li class="chapter" data-level="2.2.5" data-path="intro.html"><a href="intro.html#pick-md-eigenvectors-with-highest-eigenvalues."><i class="fa fa-check"></i><b>2.2.5</b> 5. Pick <span class="math inline">\(m&lt;d\)</span> eigenvectors with highest eigenvalues.</a></li>
-<li class="chapter" data-level="2.2.6" data-path="intro.html"><a href="intro.html#project-datapoints-to-those-eigenvectors."><i class="fa fa-check"></i><b>2.2.6</b> 6. Project datapoints to those eigenvectors.</a></li>
-<li class="chapter" data-level="2.2.7" data-path="intro.html"><a href="intro.html#perform-analysis-as-needed-according-to-study."><i class="fa fa-check"></i><b>2.2.7</b> 7. Perform analysis as needed according to study.</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#pros-and-cons-of-pca"><i class="fa fa-check"></i><b>2.3</b> Pros and Cons of PCA</a></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Principal Components Analysis</a></li>
 <li class="chapter" data-level="3" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html"><i class="fa fa-check"></i><b>3</b> Canonical Correlation Analysis (CCA)</a><ul>
 <li class="chapter" data-level="3.1" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html#what-is-cca"><i class="fa fa-check"></i><b>3.1</b> What is CCA?</a></li>
 <li class="chapter" data-level="3.2" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html#assumptions-for-cca"><i class="fa fa-check"></i><b>3.2</b> Assumptions for CCA</a></li>
+<li class="chapter" data-level="3.3" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html#objectives-of-cca"><i class="fa fa-check"></i><b>3.3</b> Objectives of CCA</a></li>
+<li class="chapter" data-level="3.4" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html#terms-used-in-the-context-of-a-cca-analysis"><i class="fa fa-check"></i><b>3.4</b> Terms used in the context of a CCA analysis</a></li>
+<li class="chapter" data-level="3.5" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html#interpreting-canonical-variates"><i class="fa fa-check"></i><b>3.5</b> Interpreting canonical variates</a></li>
+<li class="chapter" data-level="3.6" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html#considerations-when-working-with-cca"><i class="fa fa-check"></i><b>3.6</b> Considerations when working with CCA</a></li>
+<li class="chapter" data-level="3.7" data-path="canonical-correlation-analysis-cca.html"><a href="canonical-correlation-analysis-cca.html#limitations-of-cca"><i class="fa fa-check"></i><b>3.7</b> Limitations of CCA</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -131,6 +124,70 @@
 <li>Assumes <strong>linear relationship</strong> between any two variables and between variates.</li>
 <li>Multivariate normality is necessary to perform CCA.</li>
 <li>Multicollinearity in either variate <strong>confounds</strong> interpretation of canonical results.</li>
+</ul>
+</div>
+<div id="objectives-of-cca" class="section level2">
+<h2><span class="header-section-number">3.3</span> Objectives of CCA</h2>
+<ul>
+<li>Determine the magnitude of the relationships that may existe between two sets of variables.</li>
+<li>Derive a variate(s) for each set of criterion and predictor variables such that the variate(s) of each set is maximally correlated.</li>
+<li>Explain the nature of whatever relationships exist between the sets of criterion and predictor variables.</li>
+<li>Seek the max correlation of shared variance between the two sides of the equation.</li>
+</ul>
+</div>
+<div id="terms-used-in-the-context-of-a-cca-analysis" class="section level2">
+<h2><span class="header-section-number">3.4</span> Terms used in the context of a CCA analysis</h2>
+<ul>
+<li><strong>Canonical correlation:</strong> Correlation between two sets; the largest possible correlation that can be found between linear combinations.</li>
+<li><strong>Canonical variate:</strong> The linear combinations created from the IV set and DV set.</li>
+<li><strong>Canonical weights:</strong> weights used to create the liniear combinations; interpreted like regression coefficients.</li>
+<li><strong>Canonical loadings:</strong> correlations between each variable and its variate; interpreted like loadings in PCA.</li>
+<li><strong>Canonical cross-loadings:</strong> Correlation of each observed independent or dependent variable with <em>opposite</em> canonical variate.</li>
+</ul>
+</div>
+<div id="interpreting-canonical-variates" class="section level2">
+<h2><span class="header-section-number">3.5</span> Interpreting canonical variates</h2>
+<ul>
+<li>Canonical weights
+<ul>
+<li>larger wight contributes more to the function.</li>
+<li>negative weight indicates an inverse relationship with other variables.</li>
+<li>always look out for multicollinearity, it can skew the whole analysis.</li>
+</ul></li>
+<li>Canonical Loadings.
+<ul>
+<li>A direct assessment of each variable´s contribution to its respective canonical variate.</li>
+<li>Larger loadings are interpreted as more important to deriving the canonical variate.</li>
+<li>Correlation between the original variable and its canonoical variate.</li>
+</ul></li>
+<li>Canonical Cross-Loadings
+<ul>
+<li>Measure of correlation of each original D.V. with the independent canonical variate.</li>
+<li>Direct assessment of the relationship between each D.V. and the independent variate.</li>
+<li>Provides a more pure measure of the dependent and independent variable relationship.</li>
+<li>Preferred approach to interpretation.</li>
+</ul></li>
+</ul>
+</div>
+<div id="considerations-when-working-with-cca" class="section level2">
+<h2><span class="header-section-number">3.6</span> Considerations when working with CCA</h2>
+<ul>
+<li>Small samples sizes may have an adverse effect.</li>
+<li>Suggested minimun sample size = 10 * # of values.</li>
+<li>Selection of variables to be included:</li>
+<li>Select them with domain knowledge or theoretical basis.</li>
+<li>Inclusion of irrelevant or deletion of relevant variables may adversely affect the entire canonical solution.</li>
+<li>All I.V.s must be interrelated and all D.V.s must be interrelated.</li>
+<li>Composition of D.V. and I.V. variates is critical to producing practical results.</li>
+</ul>
+</div>
+<div id="limitations-of-cca" class="section level2">
+<h2><span class="header-section-number">3.7</span> Limitations of CCA</h2>
+<ul>
+<li><span class="math inline">\(R_c\)</span> (canonical R) reflects only the variance shared by the linear composites, not the variances extracted from the variables.</li>
+<li>Canonical weights are subject to a great deal of instability, particularly when there is multicollinearity.</li>
+<li>Interpretation difficult because rotation is not possible.</li>
+<li>Precise statistics have not been developed to interpret canonical analysis.</li>
 </ul>
 <p>This chapter is under construction.</p>
 <div class="figure">

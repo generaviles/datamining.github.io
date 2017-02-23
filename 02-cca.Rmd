@@ -24,6 +24,54 @@ It represents the overlapping variance between two variates which are linear com
   - Multivariate normality is necessary to perform CCA.
   - Multicollinearity in either variate **confounds** interpretation of canonical results.
 
+##Objectives of CCA
+
+  - Determine the magnitude of the relationships that may existe between two sets of variables.
+  - Derive a variate(s) for each set of criterion and predictor variables such that the variate(s) of each set is maximally correlated.
+  - Explain the nature of whatever relationships exist between the sets of criterion and predictor variables.
+  - Seek the max correlation of shared variance between the two sides of the equation.
+
+##Terms used in the context of a CCA analysis
+
+  - **Canonical correlation:** Correlation between two sets; the largest possible correlation that can be found between linear combinations.
+  - **Canonical variate:** The linear combinations created from the IV set and DV set.
+  - **Canonical weights:** weights used to create the liniear combinations; interpreted like regression coefficients.
+  - **Canonical loadings:** correlations between each variable and its variate; interpreted like loadings in PCA.
+  - **Canonical cross-loadings:** Correlation of each observed independent or dependent variable with *opposite* canonical variate.
+
+##Interpreting canonical variates
+
+  - Canonical weights
+    - larger wight contributes more to the function.
+    - negative weight indicates an inverse relationship with other variables.
+    - always look out for multicollinearity, it can skew the whole analysis.
+  - Canonical Loadings.
+    - A direct assessment of each variable´s contribution to its respective canonical variate.
+    - Larger loadings are interpreted as more important to deriving the canonical variate.
+    - Correlation between the original variable and its canonoical variate.
+  - Canonical Cross-Loadings
+    - Measure of correlation of each original D.V. with the independent canonical variate.
+    - Direct assessment of the relationship between each D.V. and the independent variate.
+    - Provides a more pure measure of the dependent and independent variable relationship.
+    - Preferred approach to interpretation.
+
+##Considerations when working with CCA
+
+- Small samples sizes may have an adverse effect.
+  - Suggested minimun sample size = 10 * # of values.
+- Selection of variables to be included:
+  - Select them with domain knowledge or theoretical basis.
+  - Inclusion of irrelevant or deletion of relevant variables may adversely affect the entire canonical solution.
+  - All I.V.s must be interrelated and all D.V.s must be interrelated.
+  - Composition of D.V. and I.V. variates is critical to producing practical results.
+
+##Limitations of CCA
+
+- $R_c$ (canonical R) reflects only the variance shared by the linear composites, not the variances extracted from the variables.
+- Canonical weights are subject to a great deal of instability, particularly when there is multicollinearity.
+- Interpretation difficult because rotation is not possible.
+- Precise statistics have not been developed to interpret canonical analysis.
+
 This chapter is under construction.
 
 ![](D:\Dropbox\MsC UABC\2o Semestre\Clases\Data Mining\datamining.github.io\img/candh.png)
