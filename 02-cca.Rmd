@@ -9,12 +9,12 @@
 
 CCA helps us answer the questions:<br \>
 
-  - ***What is the best way to understand how the variable sin two sets are related? ***,
+  - ***What is the best way to understand how the variables in two sets are related? ***,
 mathematically speaking:
-    - ***what linear combinations of the $X$ variables ($u$) and the Y variables ($t$) will maximize their correlation?***
+    - ***what linear combinations of the set $X$ variables ($u$) and the set Y variables ($t$) will maximize their correlation?***
     
 
-**$R_c$** <br \>
+###Canonical R (**$R_c$**) <br \>
 It represents the overlapping variance between two variates which are linear composites of each set of variables.
 
 ##Assumptions for CCA
