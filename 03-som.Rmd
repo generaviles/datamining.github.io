@@ -1,0 +1,30 @@
+#Self Organizing Maps
+
+##Other names:
+
+  - Self-Organizing Feature Map (SOFM).
+  - Kohonen Map.
+  - Kohonen Networks.
+
+##Generalities
+
+  - **S**elf **O**rganizing **M**aps belong to the family of **Artificial Neural Networks**.
+  - In the subgroup of **Unsupervised Learning**,
+  - To function they use a **competitive learning strategy** (winer takes all).
+  - They are considered to be a **non-linear** implementation of the *Principal Components Analysis* (PCA) algorithm. <br \>
+
+Self Organizing Maps (SOM) where first described by Teuvo Kohonen [@kohonen1995self], others have extended his work and modified SOMs to tackle speficif problems.
+
+"The Self-Organizing Map is inspired by postulated feature maps of neurons in the brain comprised of feature-sensitive cells that provide ordered projections between neuronal layers, such as those that may exist in the retina and cochlea. For example, there are acoustic feature maps that respond to sounds to which an animal is most frequently exposed, and tonotopic maps that may be responsible for the order preservation of acoustic resonances." [@brownlee2011clever] <br \>
+Different sensory inputs are maped into corresponding areas of the cerebral cortex in an orderly way. The *map* generated in the cerebral cortex is called a **topographic map** and it has two very important properties, [@somFundamentals]:
+
+  1. At each stage of representation, or processing, each piece of incoming information is
+kept in its proper context/neighbourhood.
+  2. Neurons dealing with closely related pieces of information are kept close together so
+that they can interact via short synaptic connections.
+
+<br \>
+
+Following the principles observed in the sensory input processing by neurological structures , the previous two properties should be kept in an artificial intelligence algorithm looking to reproduce this phenomenon. In shorter words: the principle of topographic map formation is the escence of this process, where: <br \>
+
+> “The spatial location of an output neuron in a topographic map corresponds to a particular domain or feature drawn from the input space.” [@somFundamentals]

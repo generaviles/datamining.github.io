@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="canonical-correlation-analysis-cca.html">
 
-<link rel="next" href="intro.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -116,24 +116,68 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Syllabus for the Datamining Class</h1>
-<h4 class="author"><em>Gener Avilés R</em></h4>
-<h4 class="date"><em>2017-04-12</em></h4>
+<div id="self-organizing-maps" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Self Organizing Maps</h1>
+<div id="other-names" class="section level2">
+<h2><span class="header-section-number">4.1</span> Other names:</h2>
+<ul>
+<li>Self-Organizing Feature Map (SOFM).</li>
+<li>Kohonen Map.</li>
+<li>Kohonen Networks.</li>
+</ul>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>This course is taught in the <strong><em>Maestría y Doctorado en Ciencias e Ingeniería</em></strong> (MyDCI) programm of <em>Facultad de Ingeniería, Arquitectura y Diseño</em> of <em>Universidad Autónoma de Baja California</em> in the Ensenada Campus.</p>
-<p>The course is taught by <a href="https://www.researchgate.net/profile/Maria_Cosio_Leon">Dr. María de los Ángeles Cosío León</a>.</p>
+<div id="generalities" class="section level2">
+<h2><span class="header-section-number">4.2</span> Generalities</h2>
+<ul>
+<li><strong>S</strong>elf <strong>O</strong>rganizing <strong>M</strong>aps belong to the family of <strong>Artificial Neural Networks</strong>.</li>
+<li>In the subgroup of <strong>Unsupervised Learning</strong>,</li>
+<li>To function they use a <strong>competitive learning strategy</strong> (winer takes all).</li>
+<li>They are considered to be a <strong>non-linear</strong> implementation of the <em>Principal Components Analysis</em> (PCA) algorithm. <br \></li>
+</ul>
+<p>Self Organizing Maps (SOM) where first described by Teuvo Kohonen <span class="citation">(Kohonen <a href="#ref-kohonen1995self">1995</a>)</span>, others have extended his work and modified SOMs to tackle speficif problems.</p>
+<p>“The Self-Organizing Map is inspired by postulated feature maps of neurons in the brain comprised of feature-sensitive cells that provide ordered projections between neuronal layers, such as those that may exist in the retina and cochlea. For example, there are acoustic feature maps that respond to sounds to which an animal is most frequently exposed, and tonotopic maps that may be responsible for the order preservation of acoustic resonances.” <span class="citation">(Brownlee <a href="#ref-brownlee2011clever">2011</a>)</span> <br \> Different sensory inputs are maped into corresponding areas of the cerebral cortex in an orderly way. The <em>map</em> generated in the cerebral cortex is called a <strong>topographic map</strong> and it has two very important properties, <span class="citation">(Bullinaria <a href="#ref-somFundamentals">2004</a>)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>At each stage of representation, or processing, each piece of incoming information is kept in its proper context/neighbourhood.</li>
+<li>Neurons dealing with closely related pieces of information are kept close together so that they can interact via short synaptic connections.</li>
+</ol>
+<p><br \></p>
+<p>Following the principles observed in the sensory input processing by neurological structures , the previous two properties should be kept in an artificial intelligence algorithm looking to reproduce this phenomenon. In shorter words: the principle of topographic map formation is the escence of this process, where: <br \></p>
+<blockquote>
+<p>“The spatial location of an output neuron in a topographic map corresponds to a particular domain or feature drawn from the input space.” <span class="citation">(Bullinaria <a href="#ref-somFundamentals">2004</a>)</span></p>
+</blockquote>
 
+<div id="refs" class="references">
+<div>
+<p>Brownlee, Jason. 2011. <em>Clever Algorithms: Nature-Inspired Programming Recipes</em>. Jason Brownlee.</p>
+</div>
+<div>
+<p>Bullinaria, John A. 2004. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf</a>.</p>
+</div>
+<div>
+<p>Kohonen, Teuvo. 1995. “Self-Organizing Maps, Volume 30 of Springer Series in Information Sciences.” Springer, Berlin, Heidelberg.</p>
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-kohonen1995self">
+<p>Kohonen, Teuvo. 1995. “Self-Organizing Maps, Volume 30 of Springer Series in Information Sciences.” Springer, Berlin, Heidelberg.</p>
+</div>
+<div id="ref-brownlee2011clever">
+<p>Brownlee, Jason. 2011. <em>Clever Algorithms: Nature-Inspired Programming Recipes</em>. Jason Brownlee.</p>
+</div>
+<div id="ref-somFundamentals">
+<p>Bullinaria, John A. 2004. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="canonical-correlation-analysis-cca.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -161,7 +205,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/generaviles/datamining.github.io/edit/master/index.Rmd",
+"link": "https://github.com/generaviles/datamining.github.io/edit/master/03-som.Rmd",
 "text": "Edit"
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],

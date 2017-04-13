@@ -84,7 +84,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2017-03-10}
+  \date{2017-04-12}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -615,6 +615,77 @@ This chapter is under construction.
 \includegraphics{D:/Dropbox/MsC UABC/2o Semestre/Clases/Data Mining/datamining.github.io/img/candh.png}
 \caption{}
 \end{figure}
+
+\chapter{Self Organizing Maps}\label{self-organizing-maps}
+
+\section{Other names:}\label{other-names}
+
+\begin{itemize}
+\tightlist
+\item
+  Self-Organizing Feature Map (SOFM).
+\item
+  Kohonen Map.
+\item
+  Kohonen Networks.
+\end{itemize}
+
+\section{Generalities}\label{generalities}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{S}elf \textbf{O}rganizing \textbf{M}aps belong to the family
+  of \textbf{Artificial Neural Networks}.
+\item
+  In the subgroup of \textbf{Unsupervised Learning},
+\item
+  To function they use a \textbf{competitive learning strategy} (winer
+  takes all).
+\item
+  They are considered to be a \textbf{non-linear} implementation of the
+  \emph{Principal Components Analysis} (PCA) algorithm. 
+\end{itemize}
+
+Self Organizing Maps (SOM) where first described by Teuvo Kohonen
+\citep{kohonen1995self}, others have extended his work and modified SOMs
+to tackle speficif problems.
+
+``The Self-Organizing Map is inspired by postulated feature maps of
+neurons in the brain comprised of feature-sensitive cells that provide
+ordered projections between neuronal layers, such as those that may
+exist in the retina and cochlea. For example, there are acoustic feature
+maps that respond to sounds to which an animal is most frequently
+exposed, and tonotopic maps that may be responsible for the order
+preservation of acoustic resonances.'' \citep{brownlee2011clever}
+Different sensory inputs are maped into corresponding areas of the
+cerebral cortex in an orderly way. The \emph{map} generated in the
+cerebral cortex is called a \textbf{topographic map} and it has two very
+important properties, \citep{somFundamentals}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  At each stage of representation, or processing, each piece of incoming
+  information is kept in its proper context/neighbourhood.
+\item
+  Neurons dealing with closely related pieces of information are kept
+  close together so that they can interact via short synaptic
+  connections.
+\end{enumerate}
+
+Following the principles observed in the sensory input processing by
+neurological structures , the previous two properties should be kept in
+an artificial intelligence algorithm looking to reproduce this
+phenomenon. In shorter words: the principle of topographic map formation
+is the escence of this process, where:
+
+\begin{quote}
+``The spatial location of an output neuron in a topographic map
+corresponds to a particular domain or feature drawn from the input
+space.'' \citep{somFundamentals}
+\end{quote}
 
 \bibliography{packages,book}
 
