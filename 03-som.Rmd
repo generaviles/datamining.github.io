@@ -10,16 +10,16 @@
 
   - **S**elf **O**rganizing **M**aps belong to the family of **Artificial Neural Networks**.
   - In the subgroup of **Unsupervised Learning**,
-  - To function they use a **competitive learning strategy** (winer takes all).
+  - To function they use a **competitive learning strategy** (winner takes all).
   - They are considered to be a **non-linear** implementation of the *Principal Components Analysis* (PCA) algorithm. <br \>
 
-Self Organizing Maps (SOM) where first described by Teuvo Kohonen [@kohonen1995self], others have extended his work and modified SOMs to tackle speficif problems.
+Self Organizing Maps (SOM) were first described by [Teuvo Kohonen](http://www.cis.hut.fi/research/som-research/teuvo.html) [@kohonen1995self], others have extended his work and modified SOMs to tackle specific problems.
 
-"The Self-Organizing Map is inspired by postulated feature maps of neurons in the brain comprised of feature-sensitive cells that provide ordered projections between neuronal layers, such as those that may exist in the retina and cochlea. For example, there are acoustic feature maps that respond to sounds to which an animal is most frequently exposed, and tonotopic maps that may be responsible for the order preservation of acoustic resonances." [@brownlee2011clever] <br \>
+"The Self-Organizing Map is inspired by postulated feature maps of neurons in the brain comprised of feature-sensitive cells that provide ordered projections between neuronal layers, such as those that may exist in the retina and cochlea. For example, there are acoustic feature maps that respond to sounds to which an animal is most frequently exposed, and tonotopic maps that may be responsible for the order preservation of acoustic resonances." [@brownlee2011clever] <br \><br \>
 Different sensory inputs are maped into corresponding areas of the cerebral cortex in an orderly way. The *map* generated in the cerebral cortex is called a **topographic map** and it has two very important properties, [@somFundamentals]:
 
   1. At each stage of representation, or processing, each piece of incoming information is
-kept in its proper context/neighbourhood.
+kept in its proper context/neighborhood.
   2. Neurons dealing with closely related pieces of information are kept close together so
 that they can interact via short synaptic connections.
 
@@ -28,3 +28,98 @@ that they can interact via short synaptic connections.
 Following the principles observed in the sensory input processing by neurological structures , the previous two properties should be kept in an artificial intelligence algorithm looking to reproduce this phenomenon. In shorter words: the principle of topographic map formation is the escence of this process, where: <br \>
 
 > “The spatial location of an output neuron in a topographic map corresponds to a particular domain or feature drawn from the input space.” [@somFundamentals]
+
+##Penfield´s Homunculus
+
+##Algorithm
+
+###Conditions
+
+  - The data given to the algorithm  must be continuous.
+  - The algorithm will perform better when fed high dimensional data.
+  - This algorithm will help in the process of 
+
+###Steps of the algorithm
+
+*This section is based on the "Introduction to Neural Computation" course, taught by [Dr John A Bullinaria](http://www.cs.bham.ac.uk/~jxb/) at the [University of Birmingham](http://www.cs.bham.ac.uk).*
+
+Self Organizing Maps follow the principle of **self organization**, composed of the following 4 steps:
+
+  1. Initialization.
+  1. Competition.
+  1. Cooperation.
+  1. Adaptation.
+
+####Initialization
+
+All the connections weights (neurons or centroids) are initialized with small random values. Other authors use the the principal component (eigenvector) of the data in this step.
+
+####Competition:
+
+For each input pattern, the neurons compute their respective values of a *discriminant function* which provides the basis for competition. The particular neuron with the smallest value of the discriminant function is declared the winner.<br \>
+
+  - Given the input space is $D$ dimensional, the input patterns can be expressed as:
+
+$$x = \{x_i:i=1,...,D\}$$
+
+  - The connection weights between the input units $i$ and the neurons $j$ in the computation layer can be expressed as:
+
+$$w_j = \{w_{ji}: j = 1,...,N; i = 1,...,D\}$$
+   
+     Where N is the total number of neurons.
+
+**Discriminant Function**<br\>
+
+Now that the dimensions of the data and how they are related to the lattice in the SOM are clearer, the next natural step in the process is to define the *discriminant function*, SOM bases this on the squared [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance):
+
+$$d_j(x) = \sum_{i=1}^D(x_i - w_{ji})^2$$
+
+By doing this, the neuron whose weight vector comes closest to the input vector (most similar to it) is "declared" the winner.
+
+This process allows us to **map a continuous space given by the input to a discrete output space of neurons** by a process of competition and a "winner takes all" approach.
+
+####Cooperation:
+The winning neuron determines the spatial location of a topological neighborhood of excited neurons, thereby providing the basis for cooperation among neighbouring neurons. This **lateral interaction** within a set of neurons has been observed by neurobiologist in human and other brains. When one neuron fires, its closest neighbours tend to get excited more than those further away. This phenomenon allows the formation of a **topological neighborhood** that decays with distance in relation to the excited neuron known as the **Best Matching Unit (BMU)** in a SOM. <br \>
+
+If $S_ij$ is the lateral distance between neurons $i$ and $j$ on the grid of output neurons, the topological neighborhood will then be expressed as:
+
+$$T_{ij,I(x)} = exp \left( \frac{-S^2_{j,I(x)}}{2\sigma^2}\right)$$
+
+Where $I(x)$ = the index of the winning neuron.
+
+This has the following key properties:
+
+  - Maximal at the BMU.
+  - It decreases monotonically to zero as the distance goes to infinity.
+  - It is translation invariant, therefore independent of the location of the BMU.
+
+**Important note:** <br \>
+
+The process of self organization will work best if the size of $\sigma$ of the neighborhood decreases with time. A popular approach has been an exponential decay:
+
+$$\sigma(t) = \sigma_0\space exp(\frac{-t}{\tau_{\sigma}})$$
+
+
+####Adaptation:
+The excited neurons decrease their individual values of the discriminant function in relation to the input pattern through suitable adjustment of the associated connection weights, such that the response of the winning neuron to the subsequent application of a similiar input pattern is enhanced.
+
+In a topographic neighborhood not only the winning neuron gets its weights updated, but its neighbors will have their weights updated as well, although by not as much as the winner itself. In practice, the appropriate weight update equation is:
+
+$$\Delta w_{ji} = \eta(t) * T_{j,I(x)}(t) * (x_i - w_{ji})$$
+
+Where there is a time ($t$, epoch) dependent learning rate $\eta(t) = \eta_0 \space exp(\frac{-t}{\tau_\eta})$, and the updates are applied for all the training patterns $x$ over many epochs.
+
+Each learning weight update will move the weight vectors **$w_i$** of the BMU (winning neuron) and it's neighbors towards the input vector **$x$**. Repeated presentations of the training data thus leads to topological ordering.
+
+<!---
+```{r}
+library(kohonen)
+library(class)
+data(wines)
+wines.sc <- scale(wines)
+set.seed(123)
+wine.som <- som(wines.sc)
+plot(wine.som, main = "Componentes de 177 distintos Vinos Analizados por SOM")
+
+```
+

@@ -26,7 +26,7 @@
 <meta name="author" content="Gener Avilés R">
 
 
-<meta name="date" content="2017-04-12">
+<meta name="date" content="2017-04-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -95,6 +95,11 @@
 <li class="chapter" data-level="4" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html"><i class="fa fa-check"></i><b>4</b> Self Organizing Maps (SOM)</a><ul>
 <li class="chapter" data-level="4.1" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#other-names"><i class="fa fa-check"></i><b>4.1</b> Other names:</a></li>
 <li class="chapter" data-level="4.2" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#generalities"><i class="fa fa-check"></i><b>4.2</b> Generalities</a></li>
+<li class="chapter" data-level="4.3" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#penfields-homunculus"><i class="fa fa-check"></i><b>4.3</b> Penfield´s Homunculus</a></li>
+<li class="chapter" data-level="4.4" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#algorithm"><i class="fa fa-check"></i><b>4.4</b> Algorithm</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#conditions"><i class="fa fa-check"></i><b>4.4.1</b> Conditions</a></li>
+<li class="chapter" data-level="4.4.2" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#steps-of-the-algorithm"><i class="fa fa-check"></i><b>4.4.2</b> Steps of the algorithm</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -131,30 +136,130 @@
 <ul>
 <li><strong>S</strong>elf <strong>O</strong>rganizing <strong>M</strong>aps belong to the family of <strong>Artificial Neural Networks</strong>.</li>
 <li>In the subgroup of <strong>Unsupervised Learning</strong>,</li>
-<li>To function they use a <strong>competitive learning strategy</strong> (winer takes all).</li>
+<li>To function they use a <strong>competitive learning strategy</strong> (winner takes all).</li>
 <li>They are considered to be a <strong>non-linear</strong> implementation of the <em>Principal Components Analysis</em> (PCA) algorithm. <br \></li>
 </ul>
-<p>Self Organizing Maps (SOM) where first described by Teuvo Kohonen <span class="citation">(Kohonen <a href="#ref-kohonen1995self">1995</a>)</span>, others have extended his work and modified SOMs to tackle speficif problems.</p>
-<p>“The Self-Organizing Map is inspired by postulated feature maps of neurons in the brain comprised of feature-sensitive cells that provide ordered projections between neuronal layers, such as those that may exist in the retina and cochlea. For example, there are acoustic feature maps that respond to sounds to which an animal is most frequently exposed, and tonotopic maps that may be responsible for the order preservation of acoustic resonances.” <span class="citation">(Brownlee <a href="#ref-brownlee2011clever">2011</a>)</span> <br \> Different sensory inputs are maped into corresponding areas of the cerebral cortex in an orderly way. The <em>map</em> generated in the cerebral cortex is called a <strong>topographic map</strong> and it has two very important properties, <span class="citation">(Bullinaria <a href="#ref-somFundamentals">2004</a>)</span>:</p>
+<p>Self Organizing Maps (SOM) were first described by <a href="http://www.cis.hut.fi/research/som-research/teuvo.html">Teuvo Kohonen</a> <span class="citation">(Kohonen <a href="#ref-kohonen1995self">1995</a>)</span>, others have extended his work and modified SOMs to tackle specific problems.</p>
+<p>“The Self-Organizing Map is inspired by postulated feature maps of neurons in the brain comprised of feature-sensitive cells that provide ordered projections between neuronal layers, such as those that may exist in the retina and cochlea. For example, there are acoustic feature maps that respond to sounds to which an animal is most frequently exposed, and tonotopic maps that may be responsible for the order preservation of acoustic resonances.” <span class="citation">(Brownlee <a href="#ref-brownlee2011clever">2011</a>)</span> <br \><br \> Different sensory inputs are maped into corresponding areas of the cerebral cortex in an orderly way. The <em>map</em> generated in the cerebral cortex is called a <strong>topographic map</strong> and it has two very important properties, <span class="citation">(Bullinaria <a href="#ref-somFundamentals">2015</a>)</span>:</p>
 <ol style="list-style-type: decimal">
-<li>At each stage of representation, or processing, each piece of incoming information is kept in its proper context/neighbourhood.</li>
+<li>At each stage of representation, or processing, each piece of incoming information is kept in its proper context/neighborhood.</li>
 <li>Neurons dealing with closely related pieces of information are kept close together so that they can interact via short synaptic connections.</li>
 </ol>
 <p><br \></p>
 <p>Following the principles observed in the sensory input processing by neurological structures , the previous two properties should be kept in an artificial intelligence algorithm looking to reproduce this phenomenon. In shorter words: the principle of topographic map formation is the escence of this process, where: <br \></p>
 <blockquote>
-<p>“The spatial location of an output neuron in a topographic map corresponds to a particular domain or feature drawn from the input space.” <span class="citation">(Bullinaria <a href="#ref-somFundamentals">2004</a>)</span></p>
+<p>“The spatial location of an output neuron in a topographic map corresponds to a particular domain or feature drawn from the input space.” <span class="citation">(Bullinaria <a href="#ref-somFundamentals">2015</a>)</span></p>
 </blockquote>
+</div>
+<div id="penfields-homunculus" class="section level2">
+<h2><span class="header-section-number">4.3</span> Penfield´s Homunculus</h2>
+</div>
+<div id="algorithm" class="section level2">
+<h2><span class="header-section-number">4.4</span> Algorithm</h2>
+<div id="conditions" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Conditions</h3>
+<ul>
+<li>The data given to the algorithm must be continuous.</li>
+<li>The algorithm will perform better when fed high dimensional data.</li>
+<li>This algorithm will help in the process of</li>
+</ul>
+</div>
+<div id="steps-of-the-algorithm" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> Steps of the algorithm</h3>
+<p><em>This section is based on the “Introduction to Neural Computation” course, taught by <a href="http://www.cs.bham.ac.uk/~jxb/">Dr John A Bullinaria</a> at the <a href="http://www.cs.bham.ac.uk">University of Birmingham</a>.</em></p>
+<p>Self Organizing Maps follow the principle of <strong>self organization</strong>, composed of the following 4 steps:</p>
+<ol style="list-style-type: decimal">
+<li>Initialization.</li>
+<li>Competition.</li>
+<li>Cooperation.</li>
+<li>Adaptation.</li>
+</ol>
+<div id="initialization" class="section level4">
+<h4><span class="header-section-number">4.4.2.1</span> Initialization</h4>
+<p>All the connections weights (neurons or centroids) are initialized with small random values. Other authors use the the principal component (eigenvector) of the data in this step.</p>
+</div>
+<div id="competition" class="section level4">
+<h4><span class="header-section-number">4.4.2.2</span> Competition:</h4>
+<p>For each input pattern, the neurons compute their respective values of a <em>discriminant function</em> which provides the basis for competition. The particular neuron with the smallest value of the discriminant function is declared the winner.<br \></p>
+<ul>
+<li>Given the input space is <span class="math inline">\(D\)</span> dimensional, the input patterns can be expressed as:</li>
+</ul>
+<p><span class="math display">\[x = \{x_i:i=1,...,D\}\]</span></p>
+<ul>
+<li>The connection weights between the input units <span class="math inline">\(i\)</span> and the neurons <span class="math inline">\(j\)</span> in the computation layer can be expressed as:</li>
+</ul>
+<p><span class="math display">\[w_j = \{w_{ji}: j = 1,...,N; i = 1,...,D\}\]</span></p>
+<pre><code> Where N is the total number of neurons.</code></pre>
+<p><strong>Discriminant Function</strong><br\></p>
+<p>Now that the dimensions of the data and how they are related to the lattice in the SOM are clearer, the next natural step in the process is to define the <em>discriminant function</em>, SOM bases this on the squared <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance</a>:</p>
+<p><span class="math display">\[d_j(x) = \sum_{i=1}^D(x_i - w_{ji})^2\]</span></p>
+<p>By doing this, the neuron whose weight vector comes closest to the input vector (most similar to it) is “declared” the winner.</p>
+<p>This process allows us to <strong>map a continuous space given by the input to a discrete output space of neurons</strong> by a process of competition and a “winner takes all” approach.</p>
+</div>
+<div id="cooperation" class="section level4">
+<h4><span class="header-section-number">4.4.2.3</span> Cooperation:</h4>
+<p>The winning neuron determines the spatial location of a topological neighborhood of excited neurons, thereby providing the basis for cooperation among neighbouring neurons. This <strong>lateral interaction</strong> within a set of neurons has been observed by neurobiologist in human and other brains. When one neuron fires, its closest neighbours tend to get excited more than those further away. This phenomenon allows the formation of a <strong>topological neighborhood</strong> that decays with distance in relation to the excited neuron known as the <strong>Best Matching Unit (BMU)</strong> in a SOM. <br \></p>
+<p>If <span class="math inline">\(S_ij\)</span> is the lateral distance between neurons <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> on the grid of output neurons, the topological neighborhood will then be expressed as:</p>
+<p><span class="math display">\[T_{ij,I(x)} = exp \left( \frac{-S^2_{j,I(x)}}{2\sigma^2}\right)\]</span></p>
+<p>Where <span class="math inline">\(I(x)\)</span> = the index of the winning neuron.</p>
+<p>This has the following key properties:</p>
+<ul>
+<li>Maximal at the BMU.</li>
+<li>It decreases monotonically to zero as the distance goes to infinity.</li>
+<li>It is translation invariant, therefore independent of the location of the BMU.</li>
+</ul>
+<p><strong>Important note:</strong> <br \></p>
+<p>The process of self organization will work best if the size of <span class="math inline">\(\sigma\)</span> of the neighborhood decreases with time. A popular approach has been an exponential decay:</p>
+<p><span class="math display">\[\sigma(t) = \sigma_0\space exp(\frac{-t}{\tau_{\sigma}})\]</span></p>
+</div>
+<div id="adaptation" class="section level4">
+<h4><span class="header-section-number">4.4.2.4</span> Adaptation:</h4>
+<p>The excited neurons decrease their individual values of the discriminant function in relation to the input pattern through suitable adjustment of the associated connection weights, such that the response of the winning neuron to the subsequent application of a similiar input pattern is enhanced.</p>
+<p>In a topographic neighborhood not only the winning neuron gets its weights updated, but its neighbors will have their weights updated as well, although by not as much as the winner itself. In practice, the appropriate weight update equation is:</p>
+<p><span class="math display">\[\Delta w_{ji} = \eta(t) * T_{j,I(x)}(t) * (x_i - w_{ji})\]</span></p>
+<p>Where there is a time (<span class="math inline">\(t\)</span>, epoch) dependent learning rate <span class="math inline">\(\eta(t) = \eta_0 \space exp(\frac{-t}{\tau_\eta})\)</span>, and the updates are applied for all the training patterns <span class="math inline">\(x\)</span> over many epochs.</p>
+<p>Each learning weight update will move the weight vectors <strong><span class="math inline">\(w_i\)</span></strong> of the BMU (winning neuron) and it’s neighbors towards the input vector <strong><span class="math inline">\(x\)</span></strong>. Repeated presentations of the training data thus leads to topological ordering.</p>
+<!---
+
+```r
+library(kohonen)
+library(class)
+```
+
+```
+## 
+## Attaching package: 'class'
+```
+
+```
+## The following object is masked from 'package:kohonen':
+## 
+##     somgrid
+```
+
+```r
+data(wines)
+wines.sc <- scale(wines)
+set.seed(123)
+wine.som <- som(wines.sc)
+plot(wine.som, main = "Componentes de 177 distintos Vinos Analizados por SOM")
+```
+
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+
+
 
 <div id="refs" class="references">
 <div>
 <p>Brownlee, Jason. 2011. <em>Clever Algorithms: Nature-Inspired Programming Recipes</em>. Jason Brownlee.</p>
 </div>
 <div>
-<p>Bullinaria, John A. 2004. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf</a>.</p>
+<p>Bullinaria, John A. 2015. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf</a>.</p>
 </div>
 <div>
 <p>Kohonen, Teuvo. 1995. “Self-Organizing Maps, Volume 30 of Springer Series in Information Sciences.” Springer, Berlin, Heidelberg.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -168,7 +273,7 @@
 <p>Brownlee, Jason. 2011. <em>Clever Algorithms: Nature-Inspired Programming Recipes</em>. Jason Brownlee.</p>
 </div>
 <div id="ref-somFundamentals">
-<p>Bullinaria, John A. 2004. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/NN/l16.pdf</a>.</p>
+<p>Bullinaria, John A. 2015. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf</a>.</p>
 </div>
 </div>
             </section>
@@ -208,7 +313,7 @@ gitbook.start({
 "link": "https://github.com/generaviles/datamining.github.io/edit/master/03-som.Rmd",
 "text": "Edit"
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
