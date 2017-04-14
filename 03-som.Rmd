@@ -111,15 +111,159 @@ Where there is a time ($t$, epoch) dependent learning rate $\eta(t) = \eta_0 \sp
 
 Each learning weight update will move the weight vectors **$w_i$** of the BMU (winning neuron) and it's neighbors towards the input vector **$x$**. Repeated presentations of the training data thus leads to topological ordering.
 
-<!---
+##Example
+
+We will take the dataset `wines` found in the package `kohonen`, which shows the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars. The analysis determined the quantities of 13 constituents found in each of the three types of wines.
+
+###Summary of the dataset
 ```{r}
 library(kohonen)
-library(class)
 data(wines)
+summary(wines)
+```
+
+###Training Phase
+```{r}
+library(kohonen)
+#SOM grid/lattice
+som_grid <- somgrid(xdim = 6, ydim = 6, topo = "hexagonal")
+
+#Standardazing dataset
 wines.sc <- scale(wines)
+
+#Setting the seed
 set.seed(123)
-wine.som <- som(wines.sc)
-plot(wine.som, main = "Componentes de 177 distintos Vinos Analizados por SOM")
+
+#Training SOM
+som_model <- som(wines.sc,
+                 grid = som_grid,
+                 rlen = 15000,
+                 alpha = c(0.05,0.01),
+                 keep.data = TRUE)
+
 
 ```
 
+###Visualization
+
+#### Training progress
+
+Once a stable plateu is shown in the plot, one can assume that the Euclidean distance from each node's weights to the samples in the database represented by that node (or neuron) has reached it's lower value. If the curve in the plot is continually decreasing more iterations will be needed.
+```{r}
+plot(som_model, type = "changes")
+```
+
+#### Node Counts
+This steps helps us visualize how many samples are mapped to each neuron on the map. This can be used as an indicator of **map quality**. Some key points:
+
+  - Sample distribution should be relatively uniform (colors or shades similar) throughout the map.
+  - Large values in a map area are a sign that a larger map is needed.
+  - Empty neurons are a sign that the map is to large.
+  - It is costumary to aim for 5 to 10 samples per neuron for an ideal map.
+```{r}
+source('coolBlueHotRed.R')
+plot(som_model,
+     type = "count",
+     palette.name = coolBlueHotRed,
+     main = "Counts plot / Map quality")
+```
+
+#### Neighbor Distance
+
+This is also called the ***U-Matrix*** and it is a visualization of the distance between each neuron and it's neihgbors. <br \>
+Key points:
+
+  - It's usually visualized using a grayscale.
+  - Areas of low neighbor distance indicate groups of similar neurons.
+  - Areas of high nighbor distance indicate that neurons are more dissimilar.
+  - The U-Matrix can be used to identify clusters.
+```{r}
+plot(som_model,
+     type = "dist.neighbours",
+     palette.name = gray.colors,
+     main = "Nighbour distance plot/ U-Matrix")
+```
+
+#### Weight vectors / Codes
+These codes are made up of normalised values of the original variables from the dataset used to train the SOM. Each node weight vector is similar (representative) of the samples mapped to that node. By doing this visualization it is possible to see patterns in the distribution of the values of variables. <br \>
+
+Key points:
+
+  - The visualization of >7 variables with this approach is usually of not much use.
+```{r}
+plot(som_model,
+     type = "codes",
+     main = "Codes",
+     palette.name = coolBlueHotRed)
+```
+
+#### Heatmaps
+
+One of the most important visualization of a SOM. It allows for a weight space view of a single variable (distribution). Usually, multiple heatmaps are produced based on different variables and then compared to see if areas and/or patterns of interest are discovered.
+Key points:
+
+  - When generating multiple visualizations of the same SOM, individual sample positions do not move form one visualization to another, the map is simpleyu colored by different variables.
+```{r}
+codes <- as.data.frame(as.list(som_model$codes))
+
+#Standardized values
+plot(som_model,
+     type = "property",
+     property = codes$alcohol,
+     palette.name = coolBlueHotRed,
+     main = "Standardized Alcohol Levels")
+
+```
+
+Heat maps are usually presented to non-technicall people, therefore it is prefered to use the normal values as they appeared on the original dataset. The following heatmaps are presented with values previous to standardization.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#Normal Values
+wines.dat <- as.data.frame(wines)
+var <- 1 #define the variable to plot 
+var_unscaled <- aggregate(as.numeric(wines.dat$alcohol), by=list(som_model$unit.classif), FUN=mean, simplify=TRUE)[,2] 
+plot(som_model,
+     type = "property",
+     property=var_unscaled,
+     palette.name=coolBlueHotRed,
+     main = "alcohol")
+
+```
+
+
+```{r, echo=FALSE, fig.cap="OD Ratio in Wines"}
+var <- 12 #define the variable to plot 
+var_unscaled <- aggregate(as.numeric(wines.dat$`OD ratio`), by=list(som_model$unit.classif), FUN=mean, simplify=TRUE)[,2] 
+plot(som_model,
+     type = "property",
+     property=var_unscaled,
+     palette.name=coolBlueHotRed,
+     main = names(wines.dat)[var])
+```
+
+```{r, echo=FALSE, fig.cap="Magnesium levels in Wines"}
+var <- 5 #define the variable to plot 
+var_unscaled <- aggregate(as.numeric(wines.dat$magnesium), by=list(som_model$unit.classif), FUN=mean, simplify=TRUE)[,2] 
+plot(som_model,
+     type = "property",
+     property=var_unscaled,
+     palette.name=coolBlueHotRed,
+     main = names(wines.dat)[var])
+```
+
+```{r, echo=FALSE, fig.cap="Total Phenols levels in Wines"}
+var <- 6 #define the variable to plot 
+var_unscaled <- aggregate(as.numeric(wines.dat$`tot. phenols`), by=list(som_model$unit.classif), FUN=mean, simplify=TRUE)[,2] 
+plot(som_model,
+     type = "property",
+     property=var_unscaled,
+     palette.name=coolBlueHotRed,
+     main = names(wines.dat)[var])
+```
+
+####Drawing Conclusions
+
+Understanding how a Self Organizing Map is generated is of key value to run these analysis. Once a clear understanding of the mathematics and algorithmia is achieved then the process of training the SOM can start.<br \>
+Special attention must be put in the quality of the SOM, the right amount of ephocs and the size of the grid as well.
+
+In the previous example one can see that wines with high levels of alcohol tend to have low OD ratios and high levels of total phenols. Combined with domain knowledge these assosiations can  be put to good use in the field.

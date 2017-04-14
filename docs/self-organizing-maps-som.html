@@ -26,7 +26,7 @@
 <meta name="author" content="Gener Avilés R">
 
 
-<meta name="date" content="2017-04-13">
+<meta name="date" content="2017-04-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,6 +51,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -99,6 +136,11 @@
 <li class="chapter" data-level="4.4" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#algorithm"><i class="fa fa-check"></i><b>4.4</b> Algorithm</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#conditions"><i class="fa fa-check"></i><b>4.4.1</b> Conditions</a></li>
 <li class="chapter" data-level="4.4.2" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#steps-of-the-algorithm"><i class="fa fa-check"></i><b>4.4.2</b> Steps of the algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#example"><i class="fa fa-check"></i><b>4.5</b> Example</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#summary-of-the-dataset"><i class="fa fa-check"></i><b>4.5.1</b> Summary of the dataset</a></li>
+<li class="chapter" data-level="4.5.2" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#training-phase"><i class="fa fa-check"></i><b>4.5.2</b> Training Phase</a></li>
+<li class="chapter" data-level="4.5.3" data-path="self-organizing-maps-som.html"><a href="self-organizing-maps-som.html#visualization"><i class="fa fa-check"></i><b>4.5.3</b> Visualization</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -219,35 +261,157 @@
 <p><span class="math display">\[\Delta w_{ji} = \eta(t) * T_{j,I(x)}(t) * (x_i - w_{ji})\]</span></p>
 <p>Where there is a time (<span class="math inline">\(t\)</span>, epoch) dependent learning rate <span class="math inline">\(\eta(t) = \eta_0 \space exp(\frac{-t}{\tau_\eta})\)</span>, and the updates are applied for all the training patterns <span class="math inline">\(x\)</span> over many epochs.</p>
 <p>Each learning weight update will move the weight vectors <strong><span class="math inline">\(w_i\)</span></strong> of the BMU (winning neuron) and it’s neighbors towards the input vector <strong><span class="math inline">\(x\)</span></strong>. Repeated presentations of the training data thus leads to topological ordering.</p>
-<!---
+</div>
+</div>
+</div>
+<div id="example" class="section level2">
+<h2><span class="header-section-number">4.5</span> Example</h2>
+<p>We will take the dataset <code>wines</code> found in the package <code>kohonen</code>, which shows the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars. The analysis determined the quantities of 13 constituents found in each of the three types of wines.</p>
+<div id="summary-of-the-dataset" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Summary of the dataset</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(kohonen)
+<span class="kw">data</span>(wines)
+<span class="kw">summary</span>(wines)</code></pre></div>
+<pre><code>##     alcohol        malic acid        ash        ash alkalinity 
+##  Min.   :11.03   Min.   :0.74   Min.   :1.360   Min.   :10.60  
+##  1st Qu.:12.36   1st Qu.:1.60   1st Qu.:2.210   1st Qu.:17.20  
+##  Median :13.05   Median :1.87   Median :2.360   Median :19.50  
+##  Mean   :12.99   Mean   :2.34   Mean   :2.366   Mean   :19.52  
+##  3rd Qu.:13.67   3rd Qu.:3.10   3rd Qu.:2.560   3rd Qu.:21.50  
+##  Max.   :14.83   Max.   :5.80   Max.   :3.230   Max.   :30.00  
+##    magnesium       tot. phenols     flavonoids    non-flav. phenols
+##  Min.   : 70.00   Min.   :0.980   Min.   :0.340   Min.   :0.1300   
+##  1st Qu.: 88.00   1st Qu.:1.740   1st Qu.:1.200   1st Qu.:0.2700   
+##  Median : 98.00   Median :2.350   Median :2.130   Median :0.3400   
+##  Mean   : 99.59   Mean   :2.292   Mean   :2.023   Mean   :0.3623   
+##  3rd Qu.:107.00   3rd Qu.:2.800   3rd Qu.:2.860   3rd Qu.:0.4400   
+##  Max.   :162.00   Max.   :3.880   Max.   :5.080   Max.   :0.6600   
+##     proanth        col. int.         col. hue        OD ratio    
+##  Min.   :0.410   Min.   : 1.280   Min.   :0.480   Min.   :1.270  
+##  1st Qu.:1.250   1st Qu.: 3.210   1st Qu.:0.780   1st Qu.:1.930  
+##  Median :1.550   Median : 4.680   Median :0.960   Median :2.780  
+##  Mean   :1.587   Mean   : 5.055   Mean   :0.957   Mean   :2.604  
+##  3rd Qu.:1.950   3rd Qu.: 6.200   3rd Qu.:1.120   3rd Qu.:3.170  
+##  Max.   :3.580   Max.   :13.000   Max.   :1.710   Max.   :4.000  
+##     proline      
+##  Min.   : 278.0  
+##  1st Qu.: 500.0  
+##  Median : 672.0  
+##  Mean   : 745.1  
+##  3rd Qu.: 985.0  
+##  Max.   :1680.0</code></pre>
+</div>
+<div id="training-phase" class="section level3">
+<h3><span class="header-section-number">4.5.2</span> Training Phase</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(kohonen)
+<span class="co">#SOM grid/lattice</span>
+som_grid &lt;-<span class="st"> </span><span class="kw">somgrid</span>(<span class="dt">xdim =</span> <span class="dv">6</span>, <span class="dt">ydim =</span> <span class="dv">6</span>, <span class="dt">topo =</span> <span class="st">&quot;hexagonal&quot;</span>)
 
-```r
-library(kohonen)
-library(class)
-```
+<span class="co">#Standardazing dataset</span>
+wines.sc &lt;-<span class="st"> </span><span class="kw">scale</span>(wines)
 
-```
-## 
-## Attaching package: 'class'
-```
+<span class="co">#Setting the seed</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
 
-```
-## The following object is masked from 'package:kohonen':
-## 
-##     somgrid
-```
+<span class="co">#Training SOM</span>
+som_model &lt;-<span class="st"> </span><span class="kw">som</span>(wines.sc,
+                 <span class="dt">grid =</span> som_grid,
+                 <span class="dt">rlen =</span> <span class="dv">15000</span>,
+                 <span class="dt">alpha =</span> <span class="kw">c</span>(<span class="fl">0.05</span>,<span class="fl">0.01</span>),
+                 <span class="dt">keep.data =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="visualization" class="section level3">
+<h3><span class="header-section-number">4.5.3</span> Visualization</h3>
+<div id="training-progress" class="section level4">
+<h4><span class="header-section-number">4.5.3.1</span> Training progress</h4>
+<p>Once a stable plateu is shown in the plot, one can assume that the Euclidean distance from each node’s weights to the samples in the database represented by that node (or neuron) has reached it’s lower value. If the curve in the plot is continually decreasing more iterations will be needed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(som_model, <span class="dt">type =</span> <span class="st">&quot;changes&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="node-counts" class="section level4">
+<h4><span class="header-section-number">4.5.3.2</span> Node Counts</h4>
+<p>This steps helps us visualize how many samples are mapped to each neuron on the map. This can be used as an indicator of <strong>map quality</strong>. Some key points:</p>
+<ul>
+<li>Sample distribution should be relatively uniform (colors or shades similar) throughout the map.</li>
+<li>Large values in a map area are a sign that a larger map is needed.</li>
+<li>Empty neurons are a sign that the map is to large.</li>
+<li>It is costumary to aim for 5 to 10 samples per neuron for an ideal map.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&#39;coolBlueHotRed.R&#39;</span>)
+<span class="kw">plot</span>(som_model,
+     <span class="dt">type =</span> <span class="st">&quot;count&quot;</span>,
+     <span class="dt">palette.name =</span> coolBlueHotRed,
+     <span class="dt">main =</span> <span class="st">&quot;Counts plot / Map quality&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="neighbor-distance" class="section level4">
+<h4><span class="header-section-number">4.5.3.3</span> Neighbor Distance</h4>
+<p>This is also called the <strong><em>U-Matrix</em></strong> and it is a visualization of the distance between each neuron and it’s neihgbors. <br \> Key points:</p>
+<ul>
+<li>It’s usually visualized using a grayscale.</li>
+<li>Areas of low neighbor distance indicate groups of similar neurons.</li>
+<li>Areas of high nighbor distance indicate that neurons are more dissimilar.</li>
+<li>The U-Matrix can be used to identify clusters.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(som_model,
+     <span class="dt">type =</span> <span class="st">&quot;dist.neighbours&quot;</span>,
+     <span class="dt">palette.name =</span> gray.colors,
+     <span class="dt">main =</span> <span class="st">&quot;Nighbour distance plot/ U-Matrix&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="weight-vectors-codes" class="section level4">
+<h4><span class="header-section-number">4.5.3.4</span> Weight vectors / Codes</h4>
+<p>These codes are made up of normalised values of the original variables from the dataset used to train the SOM. Each node weight vector is similar (representative) of the samples mapped to that node. By doing this visualization it is possible to see patterns in the distribution of the values of variables. <br \></p>
+<p>Key points:</p>
+<ul>
+<li>The visualization of &gt;7 variables with this approach is usually of not much use.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(som_model,
+     <span class="dt">type =</span> <span class="st">&quot;codes&quot;</span>,
+     <span class="dt">main =</span> <span class="st">&quot;Codes&quot;</span>,
+     <span class="dt">palette.name =</span> coolBlueHotRed)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="heatmaps" class="section level4">
+<h4><span class="header-section-number">4.5.3.5</span> Heatmaps</h4>
+<p>One of the most important visualization of a SOM. It allows for a weight space view of a single variable (distribution). Usually, multiple heatmaps are produced based on different variables and then compared to see if areas and/or patterns of interest are discovered. Key points:</p>
+<ul>
+<li>When generating multiple visualizations of the same SOM, individual sample positions do not move form one visualization to another, the map is simpleyu colored by different variables.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">codes &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">as.list</span>(som_model$codes))
 
-```r
-data(wines)
-wines.sc <- scale(wines)
-set.seed(123)
-wine.som <- som(wines.sc)
-plot(wine.som, main = "Componentes de 177 distintos Vinos Analizados por SOM")
-```
-
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-1-1.png" width="672" />
-
-
+<span class="co">#Standardized values</span>
+<span class="kw">plot</span>(som_model,
+     <span class="dt">type =</span> <span class="st">&quot;property&quot;</span>,
+     <span class="dt">property =</span> codes$alcohol,
+     <span class="dt">palette.name =</span> coolBlueHotRed,
+     <span class="dt">main =</span> <span class="st">&quot;Standardized Alcohol Levels&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Heat maps are usually presented to non-technicall people, therefore it is prefered to use the normal values as they appeared on the original dataset. The following heatmaps are presented with values previous to standardization.</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-9"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" alt="OD Ratio in Wines" width="672" />
+<p class="caption">
+Figure 4.1: OD Ratio in Wines
+</p>
+</div>
+<div class="figure"><span id="fig:unnamed-chunk-10"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" alt="Magnesium levels in Wines" width="672" />
+<p class="caption">
+Figure 4.2: Magnesium levels in Wines
+</p>
+</div>
+<div class="figure"><span id="fig:unnamed-chunk-11"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" alt="Total Phenols levels in Wines" width="672" />
+<p class="caption">
+Figure 4.3: Total Phenols levels in Wines
+</p>
+</div>
+</div>
+<div id="drawing-conclusions" class="section level4">
+<h4><span class="header-section-number">4.5.3.6</span> Drawing Conclusions</h4>
+<p>Understanding how a Self Organizing Map is generated is of key value to run these analysis. Once a clear understanding of the mathematics and algorithmia is achieved then the process of training the SOM can start.<br \> Special attention must be put in the quality of the SOM, the right amount of ephocs and the size of the grid as well.</p>
+<p>In the previous example one can see that wines with high levels of alcohol tend to have low OD ratios and high levels of total phenols. Combined with domain knowledge these assosiations can be put to good use in the field.</p>
 
 <div id="refs" class="references">
 <div>
@@ -313,7 +477,7 @@ gitbook.start({
 "link": "https://github.com/generaviles/datamining.github.io/edit/master/03-som.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
 "toc": {
 "collapse": "subsection"
 }
