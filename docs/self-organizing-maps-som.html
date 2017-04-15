@@ -266,7 +266,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="example" class="section level2">
 <h2><span class="header-section-number">4.5</span> Example</h2>
-<p>We will take the dataset <code>wines</code> found in the package <code>kohonen</code>, which shows the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars. The analysis determined the quantities of 13 constituents found in each of the three types of wines.</p>
+<p>This example is based on material presented in Dublin for the 2014 R Regional Conference <span class="citation">(Lynn <a href="#ref-shane">2014</a>)</span> <br \> We will take the dataset <code>wines</code> found in the package <code>kohonen</code> <span class="citation">(Ron Wehrens <a href="#ref-R-kohonen">2017</a>)</span>, which shows the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars. The analysis determined the quantities of 13 constituents found in each of the three types of wines.</p>
 <div id="summary-of-the-dataset" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> Summary of the dataset</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(kohonen)
@@ -413,6 +413,25 @@ Figure 4.3: Total Phenols levels in Wines
 <p>Understanding how a Self Organizing Map is generated is of key value to run these analysis. Once a clear understanding of the mathematics and algorithmia is achieved then the process of training the SOM can start.<br \> Special attention must be put in the quality of the SOM, the right amount of ephocs and the size of the grid as well.</p>
 <p>In the previous example one can see that wines with high levels of alcohol tend to have low OD ratios and high levels of total phenols. Combined with domain knowledge these assosiations can be put to good use in the field.</p>
 
+<div id="refs" class="references">
+<div>
+<p>Brownlee, Jason. 2011. <em>Clever Algorithms: Nature-Inspired Programming Recipes</em>. Jason Brownlee.</p>
+</div>
+<div>
+<p>Bullinaria, John A. 2015. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf</a>.</p>
+</div>
+<div>
+<p>Kohonen, Teuvo. 1995. “Self-Organizing Maps, Volume 30 of Springer Series in Information Sciences.” Springer, Berlin, Heidelberg.</p>
+</div>
+<div>
+<p>Lynn, Shane. 2014. “Self-Organising Maps for Customer Segmentation Using R.” January. <a href="https://www.slideshare.net/shanelynn/2014-0117-dublin-r-selforganising-maps-for-customer-segmentation-shane-lynn" class="uri">https://www.slideshare.net/shanelynn/2014-0117-dublin-r-selforganising-maps-for-customer-segmentation-shane-lynn</a>.</p>
+</div>
+<div>
+<p>Ron Wehrens, Johannes Kruisselbrink. 2017. <em>Supervised and Unsupervised Self-Organising Maps</em>. <a href="https://cran.r-project.org/web/packages/kohonen/" class="uri">https://cran.r-project.org/web/packages/kohonen/</a>.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <h3>References</h3>
@@ -425,6 +444,12 @@ Figure 4.3: Total Phenols levels in Wines
 </div>
 <div id="ref-somFundamentals">
 <p>Bullinaria, John A. 2015. “Self Organizing Maps: Fundamentals.” <a href="http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf" class="uri">http://www.cs.bham.ac.uk/~jxb/INC/l16.pdf</a>.</p>
+</div>
+<div id="ref-shane">
+<p>Lynn, Shane. 2014. “Self-Organising Maps for Customer Segmentation Using R.” January. <a href="https://www.slideshare.net/shanelynn/2014-0117-dublin-r-selforganising-maps-for-customer-segmentation-shane-lynn" class="uri">https://www.slideshare.net/shanelynn/2014-0117-dublin-r-selforganising-maps-for-customer-segmentation-shane-lynn</a>.</p>
+</div>
+<div id="ref-R-kohonen">
+<p>Ron Wehrens, Johannes Kruisselbrink. 2017. <em>Supervised and Unsupervised Self-Organising Maps</em>. <a href="https://cran.r-project.org/web/packages/kohonen/" class="uri">https://cran.r-project.org/web/packages/kohonen/</a>.</p>
 </div>
 </div>
             </section>
